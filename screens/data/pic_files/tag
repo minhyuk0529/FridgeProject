@@ -1,0 +1,48 @@
+(function(w, d) {
+  try {
+    d = w.top.document || d; w = w.top.document ? w.top : w;
+  } catch (e) {}
+  var ttag = function() {
+    w.teads.page(50532).placement(55646, {slider: {allow_corner_position: false, allow_top_position: false}, "css":"margin: 0px auto 0px; max-width: 550px;","callbacks":{"AdLoaded":function () {var teadsClickButton = window.top.document.querySelector(".teads-player > iframe").contentWindow.document.querySelector(".teads-ui-component-clickbutton");
+if (teadsClickButton) { teadsClickButton.remove(); }},"AdVideoStart":function () {var teadsClickButton = window.top.document.querySelector(".teads-player > iframe").contentWindow.document.querySelector(".teads-ui-component-clickbutton");
+if (teadsClickButton) { teadsClickButton.remove(); }}},"format":"inread","slot":{"insertInside":true,"btf":false,"selector":"#hl-incontent-video-ad","minimum":1}}).passback(function passback() {(function() {
+    function loadIt() {
+        console.log("DOM fully loaded and parsed");
+        var configParams = {
+            "width": 640,
+            "height": 360,
+            "k_pos": "before",
+            "k_placement": "a/#hl-incontent-video-ad",
+            "k_align": "center"
+        };
+        var doc = top.window.document;
+        var as = doc.createElement('script'),
+            aT = '//video-ads-apex.rubiconproject.com/apex/11314/76668/361510/203/apex.js?r=' + Math.random() * 10000000000000000;
+        as.type = 'text/javascript';
+        as.src = aT;
+        as.async = true;
+
+        if (as.textContent) {
+            as.textContent = JSON.stringify(configParams);
+        } else {
+            as.innerText = JSON.stringify(configParams);
+        }
+        doc.body.appendChild(as);
+    }
+    if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll)) {
+        loadIt();
+    } else {
+        document.addEventListener("DOMContentLoaded", loadIt);
+    }
+}());}).serve();
+  };
+  if (w.teads && w.teads.page) { ttag(); }
+  else if (!w.teadsscript) {
+    var s = document.createElement('script');
+    var protocol = w.location.protocol.match(/^https?:$/) ? w.location.protocol : 'https:';
+    s.src = protocol + '//a.teads.tv/media/format/v3/teads-format.min.js';
+    s.async = true; s.onload = ttag; w.teadsscript = d.getElementsByTagName('head')[0].appendChild(s);
+  } else {
+    w.teadsscript.addEventListener('load', ttag);
+  }
+})(window, document);
