@@ -14,16 +14,12 @@ export default class Recipe_Steps extends React.Component {
             thereisPhoto : false,
             photo : null,
         }
-        this.position = new Animated.ValueXY()
-        
-        this.onPressGetPhoto = this.onPressGetPhoto.bind(this)
-    }
-
-    componentWillMount() {
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
             onPanResponderMove: (evt, gestureState) =>{
-                if (gestureState.dx > 180){
+                if(gestureState.dx < 0 ){
+                    this.position.setValue({x:0,y:0})
+                }else if (gestureState.dx > 180){
                     this.position.setValue({x:180, y:0})
                 }else{
                     this.position.setValue({ x: gestureState.dx, y: 0 })
@@ -38,6 +34,10 @@ export default class Recipe_Steps extends React.Component {
                 }
             }
         });
+        this.position = new Animated.ValueXY()
+        
+        this.onPressGetPhoto = this.onPressGetPhoto.bind(this)
+        this.onChangeText = this.onChangeText.bind(this)
     }
 
     onChangeText=(t)=>{
@@ -68,7 +68,7 @@ export default class Recipe_Steps extends React.Component {
                 <TextInput
                     style={styles.description}
                     placeholder={this.props.description}
-                    onChangeText={(text)=>onChangeText(text)}
+                    onChangeText={this.onChangeText}
                     value={this.state.description}
                     multiline={true}
                 />
@@ -78,7 +78,7 @@ export default class Recipe_Steps extends React.Component {
                         onPress={this.onPressGetPhoto}>
                         <View>
                             <FastImage
-                                style={{width:40, height:40, borderRadius:15}}
+                                style={{width:40, height:40, borderRadius:15}}          //사진도 크게 볼 수 있으면 좋겠다 (Swiping?)
                                 source={{uri : this.state.photo.uri}}/>
                         </View>
                     </TouchableOpacity>

@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
-import{View, Text, StyleSheet} from 'react-native';
+import{View, Button, StyleSheet, AsyncStorage} from 'react-native';
 
 class Search extends Component {
-    render(){
-        return(
-            <View style={styles.container}>
-                <Text>Search</Text>
+    render() {
+        return (
+            <View style={styles.container}> 
+                <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
             </View>
-        )
+        );
     }
+
+    _signOutAsync = async () => {
+        await AsyncStorage.clear();
+        this.props.navigation.navigate('AuthLoading');
+    };
 }
 
 export default Search;
